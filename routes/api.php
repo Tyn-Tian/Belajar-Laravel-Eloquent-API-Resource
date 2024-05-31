@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -23,4 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/categories/{id}', function ($id) {
     $category = Category::findOrFail($id);
     return new CategoryResource($category);
+});
+Route::get('/categories', function () {
+    $categories = Category::all();
+    return CategoryResource::collection($categories);
+});
+Route::get('/categories-custom', function () {
+    $categories = Category::all();
+    return new CategoryCollection($categories);
 });
