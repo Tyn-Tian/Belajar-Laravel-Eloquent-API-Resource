@@ -19,6 +19,7 @@ class ProductTest extends TestCase
 
         $this->get("/api/products/$product->id")
             ->assertStatus(200)
+            ->assertHeader("X-Powered-By", "Christian")
             ->assertJson([
                 "value" => [
                     "name" => $product->name,
@@ -38,7 +39,8 @@ class ProductTest extends TestCase
     {
         $this->seed([CategorySeeder::class, ProductSeeder::class]);
         $response = $this->get('/api/products')
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertHeader("X-Powered-By", "Christian");
 
         $names = $response->json("data.*.name");
         for ($i = 0; $i < 5; $i++) {
