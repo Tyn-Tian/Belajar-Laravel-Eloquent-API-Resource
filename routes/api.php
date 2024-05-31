@@ -40,6 +40,7 @@ Route::get('/categories-custom', function () {
 
 Route::get('/products/{id}', function ($id) {
     $product = Product::find($id);
+    $product->load("category");
     return new ProductResource($product);
 });
 Route::get('/products', function () {
